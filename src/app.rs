@@ -392,24 +392,17 @@ fn pob_font_definitions() -> FontDefinitions {
 
     definitions.generic_families.insert(
         parley::GenericFamily::Monospace,
-        vec!["bitstream-vera-sans-mono".to_owned()],
+        vec!["Bitstream Vera Sans Mono".to_owned()],
     );
 
     definitions.generic_families.insert(
         parley::GenericFamily::SansSerif,
-        vec![
-            "liberation-sans".to_owned(),
-            "liberation-sans-bold".to_owned(),
-        ],
+        vec!["Liberation Sans".to_owned()],
     );
 
     definitions.generic_families.insert(
         parley::GenericFamily::Serif,
-        vec![
-            "fontin-regular".to_owned(),
-            "fontin-italic".to_owned(),
-            "fontin-smallcaps".to_owned(),
-        ],
+        vec!["Fontin".to_owned(), "Fontin SmallCaps".to_owned()],
     );
 
     definitions
