@@ -445,14 +445,29 @@ fn get_index_at_cur(
     let font_type = font_type.parse::<PoBFontType>()?;
 
     let job = build_layout_job(&text, Srgba::WHITE, font_type, line_height, None);
-    let index = ctx.fonts().get_text_index_at_cursor(
+    let index_stripped = ctx.fonts().get_text_index_at_cursor(
         job,
         Point::new(cur_x, cur_y),
         ctx.window().scale_factor(),
     );
 
-    // convert to lua's 1-based indexing
-    Ok(index + 1)
+    // build_layout_job() strips all color escape strings from the original string. The
+    // resulting [`LayoutJob`] is then passed to get_text_index_at_cursor() which returns an
+    // index into the **stripped* string.
+    // But PoB expects an index into the **original, unstripped** text. Therefore we need to add
+    // the length of all color escapes up until the cursor position to return the right value.
+    //
+    // TODO: avoid matching and iterating over string twice
+    let mut color_escapes_total_length = 0;
+    for capture in ESCAPE_STR_REGEX.find_iter(&text) {
+        if capture.start() - color_escapes_total_length > index_stripped {
+            break;
+        }
+        color_escapes_total_length += capture.len();
+    }
+
+    // add length of color escapes and convert to lua's 1-based indexing
+    Ok(index_stripped + color_escapes_total_length + 1)
 }
 
 pub static ESCAPE_STR_REGEX: LazyLock<Regex> =
