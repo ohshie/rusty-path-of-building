@@ -1,0 +1,28 @@
+name = "poe1"
+product-name = "Path of Building"
+identifier = "com.meehl.rusty-pob-poe1"
+version = "0.2.17"
+out-dir = "../target/release"
+icons = ["../assets/icon.png"]
+before-packaging-command = """
+  [ -f Cargo.toml ] || cd .. \
+  && cargo build --release \
+  && rustc macos/launcher.rs -o target/release/poe1 \
+  && cp target/release/poe1 target/release/poe2 \
+  && make -C lua/libs/lzip LUA_IMPL=luajit \
+  && cp lua/libs/lzip/lzip.so $HOME/.luarocks/lib/lua/5.1/ \
+  && mkdir -p target/lua-bundle/lib target/lua-bundle/share \
+  && cp -r $HOME/.luarocks/lib/lua/5.1/. target/lua-bundle/lib/ \
+  && cp -r $HOME/.luarocks/share/lua/5.1/. target/lua-bundle/share/
+"""
+binaries = [
+    { path = "poe1", main = true },
+    { path = "rusty-path-of-building", main = false },
+]
+resources = [
+    { src = "../target/lua-bundle/lib", target = "lua/lib" },
+    { src = "../target/lua-bundle/share", target = "lua/share" },
+]
+
+[macos]
+minimum-system-version = "11.0"
