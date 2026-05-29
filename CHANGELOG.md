@@ -2,6 +2,8 @@
 
 ## [Unreleased] - ReleaseDate
 
+## [0.2.18] - 2026-05-29
+
 ### Changed
 
 - Raise `max_texture_array_layers` GPU requirement to support new gem tooltips
@@ -207,8 +209,9 @@
 - First release
 
 <!-- next-url -->
+[Unreleased]: https://github.com/meehl/rusty-path-of-building/compare/v0.2.18...HEAD
 
-[Unreleased]: https://github.com/meehl/rusty-path-of-building/compare/v0.2.17...HEAD
+[0.2.18]: https://github.com/meehl/rusty-path-of-building/compare/v0.2.17...v0.2.18
 [0.2.17]: https://github.com/meehl/rusty-path-of-building/compare/v0.2.16...v0.2.17
 [0.2.16]: https://github.com/meehl/rusty-path-of-building/compare/v0.2.15...v0.2.16
 [0.2.15]: https://github.com/meehl/rusty-path-of-building/compare/v0.2.14...v0.2.15
