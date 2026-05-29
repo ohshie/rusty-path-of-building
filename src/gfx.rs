@@ -48,7 +48,7 @@ impl GraphicsContext {
 
         let required_features = wgpu::Features::TEXTURE_COMPRESSION_BC;
         let required_limits = wgpu::Limits {
-            max_texture_array_layers: 512,
+            max_texture_array_layers: 1024,
             ..Default::default()
         };
 
